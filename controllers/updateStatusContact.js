@@ -2,12 +2,12 @@ const { basedir } = global
 const { Contact, schemas } = require(`${basedir}/models/contact`)
 const { createError } = require(`${basedir}/helpers`)
 
-const updateFavourite = async (req, res) => {
+const updateStatusContact = async (req, res) => {
   const { error } = schemas.updateFavourite.validate(req.body)
   if (error) {
     throw createError({
       status: 400,
-      message: 'missing field favourite',
+      message: 'missing field favourite or wrong data type',
     })
   }
 
@@ -20,4 +20,4 @@ const updateFavourite = async (req, res) => {
   if (!result) throw createError({ status: 404 })
   res.json(result)
 }
-module.exports = updateFavourite
+module.exports = updateStatusContact
