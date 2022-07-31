@@ -14,6 +14,8 @@ router.post('/register', controllersWrapper(ctrl.register))
 
 router.post('/login', controllersWrapper(ctrl.login))
 
+router.patch('/:userId/user', controllersWrapper(ctrl.updateUserSubscription))
+
 router.get('/current', auth, controllersWrapper(ctrl.getCurrent))
 
 router.get('/logout', auth, controllersWrapper(ctrl.logout))

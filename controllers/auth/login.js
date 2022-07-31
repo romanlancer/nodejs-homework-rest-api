@@ -12,16 +12,16 @@ const { SECRET_KEY } = process.env
 const login = async (req, res) => {
   const { error } = schemas.login.validate(req.body)
   if (error) {
-    throw createError(400, error.message)
+    throw createError({ status: 400, message: error.message })
   }
   const { email, password } = req.body
   const user = await User.findOne({ email })
   if (!user) {
-    throw createError(401, 'Email wrong')
+    throw createError({ status: 401, message: 'Email wrong'})
   }
   const comparePassword = await bcrypt.compare(password, user.password)
   if (!comparePassword) {
-    throw createError(401, 'Password wrong')
+    throw createError({ status: 401, message: 'Password wrong'})
   }
   const payload = {
     id: user._id,

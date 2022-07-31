@@ -1,6 +1,6 @@
 const express = require('express')
 const { basedir } = global
-const controllers = require(`${basedir}/controllers`)
+const controllers = require(`${basedir}/controllers/contacts`)
 const { controllersWrapper } = require(`${basedir}/helpers`)
 const { auth } = require(`${basedir}/middlewares`)
 const router = express.Router()
