@@ -5,12 +5,12 @@ const app = require('../app')
 
 const { DB_HOST, PORT = 3000 } = process.env
 
-describe('Test login controller', () => {
+describe('tests for login/register controllers', () => {
   beforeAll(() =>
     mongoose
       .connect(DB_HOST)
       .then(() => {
-        console.log('Database connection successful')
+        console.log('database connection successful')
         app.listen(PORT, () => {
           console.log(`Server running. Use our API on port: ${PORT}`)
         })
