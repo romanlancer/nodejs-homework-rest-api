@@ -6,7 +6,11 @@ const { basedir } = global
 
 const { User, schemas } = require(`${basedir}/models/user`)
 
-const { createError, emailSender } = require(`${basedir}/helpers`)
+const {
+  createError,
+  emailSender,
+  verificationLetter,
+} = require(`${basedir}/helpers`)
 
 const register = async (req, res) => {
   const { error } = schemas.register.validate(req.body)
@@ -28,12 +32,7 @@ const register = async (req, res) => {
     verificationToken,
   })
 
-  const mail = {
-    to: email,
-    subject: 'Please verify your registration on our website',
-    html: `<a target="_blank" href="http://localhost:3000/api/auth/verify/${verificationToken}">Click this link for your verification approval </a>`,
-  }
-  await emailSender(mail)
+  await emailSender(verificationLetter(email, verificationToken))
   res.status(201).json({
     name: result.username,
     email: result.email,

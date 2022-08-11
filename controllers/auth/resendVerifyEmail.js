@@ -2,7 +2,11 @@ const { basedir } = global
 
 const { User, schemas } = require(`${basedir}/models/user`)
 
-const { createError, emailSender } = require(`${basedir}/helpers`)
+const {
+  createError,
+  emailSender,
+  verificationLetter,
+} = require(`${basedir}/helpers`)
 
 const resendVerifyEmail = async (req, res) => {
   const { email } = req.body
@@ -17,12 +21,8 @@ const resendVerifyEmail = async (req, res) => {
   if (user.verify) {
     throw createError(400, 'Verification has already been passed')
   }
-  const mail = {
-    to: email,
-    subject: 'Please verify your registration on our website',
-    html: `<a target="_blank" href="http://localhost:3000/api/auth/verify/${user.verificationToken}">Click this link for your verification approval </a>`,
-  }
-  await emailSender(mail)
+
+  await emailSender(verificationLetter(email, user.verificationToken))
   res.json({
     message: 'Verification email sent',
   })
