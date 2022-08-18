@@ -12,6 +12,10 @@ const router = express.Router()
 
 router.post('/register', controllersWrapper(ctrl.register))
 
+router.get('/verify/:verificationToken', controllersWrapper(ctrl.verifyEmail))
+
+router.post('/verify', controllersWrapper(ctrl.resendVerifyEmail))
+
 router.post('/login', controllersWrapper(ctrl.login))
 
 router.patch('/:userId/user', controllersWrapper(ctrl.updateUserSubscription))
